@@ -12,6 +12,7 @@
     state: present
 
 - name: Install yay
+  become: true
   shell: |
     git clone https://aur.archlinux.org/yay.git
     cd yay
