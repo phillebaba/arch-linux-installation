@@ -9,14 +9,20 @@
     clone: true
     update: true
 
+- set_fact:
+    dotfiles_directory: "{{ repo_directory }}/files/"
+
 - name: Recursively find all files
   find:
-    paths: "{{ repo_directory }}/files"
+    paths: "{{ dotfiles_directory }}"
     recurse: true
   register: dotfiles
 
-- set_fact:
-    dotfiles_directory: "{{ repo_directory }}/files/"
+- name: Create directories if missing
+  file:
+    path: "{{ ansible_env.HOME }}/{{ item.path | replace(dotfiles_directory, '') | dirname }}"
+    state: directory
+  with_items: "{{ dotfiles.files }}"
 
 - name: Symlink dotfiles
   file:
