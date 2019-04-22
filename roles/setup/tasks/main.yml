@@ -1,0 +1,11 @@
+---
+- name: Create user directories
+  file:
+    src: '~/{{ item }}'
+    state: directory
+    mode: 0755
+  with_items:
+    - downloads
+    - code
+    - documents
+    - pictures

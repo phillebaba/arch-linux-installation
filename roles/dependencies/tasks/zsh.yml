@@ -1,0 +1,19 @@
+---
+- name: Install zsh shell
+  become: true
+  pacman:
+    name: zsh
+    state: present
+
+- name: Set zsh as default shell
+  become: true
+  shell: chsh -s /usr/bin/zsh
+
+- name: Install Oh My Zsh
+  shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+- name: Install zsh-autosuggestions
+  become: true
+  pacman:
+    name: zsh-autosuggestions
+    state: present

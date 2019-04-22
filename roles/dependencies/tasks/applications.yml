@@ -1,0 +1,27 @@
+---
+- name: Install default terminal
+  become: true
+  pacman:
+    name: ["rxvt-unicode", "rxvt-unicode-terminfo"]
+    state: present
+
+- name: Install Firefox
+  become: true
+  pacman:
+    name: firefox
+    state: present
+
+- name: Install Arandr
+  become: true
+  pacman:
+    name: arandr
+    state: present
+
+- name: Install Zathura (PDF Viewer)
+  become: true
+  pacman:
+    name: zathura
+    state: present
+
+#- name: Install Spotify
+#  shell: yay --noconfirm -S aur/spotify

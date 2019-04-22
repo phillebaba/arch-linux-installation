@@ -1,0 +1,20 @@
+---
+- name: Install git
+  become: true
+  pacman:
+    name: git
+    state: present
+
+- name: Install base font
+  become: true
+  pacman:
+    name: ttf-dejavu
+    state: present
+
+- name: Install yay
+  shell: |
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    makepkg -si
+    cd ..
+    rm -rf yay

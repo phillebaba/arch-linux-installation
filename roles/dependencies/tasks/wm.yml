@@ -1,0 +1,39 @@
+---
+- name: Install xorg dependencies
+  become: true
+  pacman:
+    name: ["xorg", "xorg-xinit"]
+    state: present
+
+- name: Install Nerd Font
+  shell: yay --needed --noconfirm -S aur/nerd-fonts-complete
+
+- name: Install i3WM and addons
+  become: true
+  pacman:
+    name: ["i3-wm", "rofi"]
+    state: present
+
+- name: Install polybar
+  shell: yay --noconfirm -S aur/polybar
+
+- name: Install betterlockscreen
+  shell: yay --needed --noconfirm -S aur/betterlockscreen
+
+- name: Install Dunst (Notification Daemon)
+  become: true
+  pacman:
+    name: dunst
+    state: present
+
+- name: Install Feh
+  become: true
+  pacman:
+    name: feh
+    state: present
+
+- name: Install Compton
+  become: true
+  pacman:
+    name: compton
+    state: present

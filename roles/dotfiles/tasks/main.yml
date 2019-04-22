@@ -1,0 +1,27 @@
+---
+- set_fact:
+    repo_directory: "{{ ansible_env.HOME }}/.dotfiles"
+
+- name: Clone dotfiles repo
+  git:
+    repo: https://github.com/phillebaba/dotfiles.git
+    dest: "{{ repo_directory }}"
+    clone: true
+    update: true
+
+- name: Recursively find all files
+  find:
+    paths: "{{ repo_directory }}/files"
+    recurse: true
+  register: dotfiles
+
+- set_fact:
+    dotfiles_directory: "{{ repo_directory }}/files/"
+
+- name: Symlink dotfiles
+  file:
+    src: "{{ item.path }}"
+    dest: "{{ ansible_env.HOME }}/{{ item.path | replace(dotfiles_directory, '') }}"
+    state: link
+    force: true
+  with_items: "{{ dotfiles.files }}"

@@ -1,0 +1,43 @@
+---
+- name: Install clipit
+  shell: yay --noconfirm -S aur/clipit
+
+- name: Install udiskie
+  shell: yay --noconfirm -S aur/udiskie
+
+- name: Install Alsa Utils
+  become: true
+  pacman:
+    name: alsa-utils
+    state: present
+
+- name: Install MPD (Music Player Daemon)
+  become: true
+  pacman:
+    name: mpd
+    state: present
+
+- name: Install pip
+  become: true
+  pacman:
+    name: python-pip
+    state: present
+
+- name: Install neovim
+  become: true
+  pacman:
+    name: neovim
+    state: present
+
+- name: Install pass
+  become: true
+  pacman:
+    name: pass
+    state: present
+
+- name: Install docker
+  become: true
+  pacman:
+    name: docker
+    state: present
+
