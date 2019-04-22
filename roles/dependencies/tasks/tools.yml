@@ -3,7 +3,10 @@
   shell: yay --noconfirm -S aur/clipit
 
 - name: Install udiskie
-  shell: yay --noconfirm -S aur/udiskie
+  become: true
+  pacman:
+    name: udiskie
+    state: present
 
 - name: Install Alsa Utils
   become: true
