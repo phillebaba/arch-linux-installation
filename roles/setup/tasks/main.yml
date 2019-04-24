@@ -1,7 +1,21 @@
 ---
+- name: Create .ssh directory
+  file:
+    path: "{{ ansible_env.HOME }}/.ssh"
+    state: directory
+
+- set_fact:
+    key_path: "{{ ansible_env.HOME }}/.ssh/id_rsa"
+
+# Replace with openssh_keypair when Ansible 2.8 is released
+- name: Generate rsa key pair for machine
+  command : "ssh-keygen -q -t rsa -f {{ key_path }} -C '' -N ''"
+  args:
+    creates: "{{ key_path }}"
+
 - name: Create user directories
   file:
-    src: '~/{{ item }}'
+    path: "{{ ansible_env.HOME }}/{{ item }}"
     state: directory
     mode: 0755
   with_items:
@@ -9,3 +23,4 @@
     - code
     - documents
     - pictures
+
