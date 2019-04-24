@@ -1,4 +1,19 @@
 ---
+- name: Install wicd
+  become: true
+  pacman:
+    name:
+      - wicd
+      - notification-daemon
+      - python2-notify
+
+- name: Start wicd service and enable it
+  become: true
+  systemd:
+    nam: wicd
+    state: started
+    enabled: true
+
 - name: Install clipit
   shell: yay --noconfirm -S aur/clipit
 
@@ -20,17 +35,12 @@
     name: mpd
     state: present
 
-- name: Install pip
+- name: Install ssh
   become: true
   pacman:
-    name: python-pip
+    name: openssh
     state: present
 
-- name: Install neovim
-  become: true
-  pacman:
-    name: neovim
-    state: present
 
 - name: Install pass
   become: true
@@ -38,9 +48,4 @@
     name: pass
     state: present
 
-- name: Install docker
-  become: true
-  pacman:
-    name: docker
-    state: present
 

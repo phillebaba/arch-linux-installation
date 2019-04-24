@@ -10,7 +10,10 @@
   shell: chsh -s /usr/bin/zsh
 
 - name: Install Oh My Zsh
+  become: true
   shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  args:
+    creates: "{{ ansible_env.HOME }}/.oh-my-zsh"
 
 - name: Install zsh-autosuggestions
   become: true

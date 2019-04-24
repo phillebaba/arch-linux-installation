@@ -1,4 +1,10 @@
 ---
+- name: Blacklist pcspkr from being loaded by kernel (beep)
+  become: true
+  copy:
+    content: blacklist pcspkr
+    dest: /etc/modprobe.d/nobeep.conf
+
 - name: Install git
   become: true
   pacman:
@@ -19,3 +25,5 @@
     makepkg -si
     cd ..
     rm -rf yay
+  args:
+    creates: /usr/bin/yay
