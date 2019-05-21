@@ -1,16 +1,12 @@
 ---
+# Python
 - name: Install pip
   become: true
   pacman:
-    name: python-pip
+    name: [python-pip, python-virtualenv]
     state: present
 
-- name: Install aws cli
-  become: true
-  pip:
-    name: awscli
-    state: present
-
+# Vim
 - name: Remove default vi and vim
   become: true
   pacman:
@@ -36,10 +32,11 @@
   args:
     creates: ~/.local/share/nvim/site/autoload/plug.vim
 
-- name: Install terraform
+# CLI
+- name: Install aws cli
   become: true
-  pacman:
-    name: terraform
+  pip:
+    name: awscli
     state: present
 
 - name: Install kubectl
@@ -52,6 +49,13 @@
   become: true
   pacman:
     name: jq
+    state: present
+
+# Other
+- name: Install terraform
+  become: true
+  pacman:
+    name: terraform
     state: present
 
 - name: Install docker
