@@ -10,12 +10,12 @@
 - name: Start wicd service and enable it
   become: true
   systemd:
-    nam: wicd
+    name: wicd
     state: started
     enabled: true
 
 - name: Install clipit
-  shell: yay --noconfirm -S aur/clipit
+  shell: yay --noconfirm -S aur/clipster
 
 - name: Install udiskie
   become: true
@@ -41,11 +41,15 @@
     name: openssh
     state: present
 
-
 - name: Install pass
   become: true
   pacman:
     name: pass
     state: present
 
+- name: Install thefuck
+  become: true
+  pacman:
+    name: thefuck
+    state: present
 
