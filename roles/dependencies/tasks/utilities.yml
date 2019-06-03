@@ -53,3 +53,15 @@
     name: thefuck
     state: present
 
+- name: Install ykman
+  become: true
+  pacman:
+    name: yubikey-manager
+    state: present
+
+- name: Start and enable pcscd for ykman
+  become: true
+  service:
+    name: pcscd
+    state: started
+    enabled: true
