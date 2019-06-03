@@ -1,4 +1,13 @@
 ---
+- name: Configure gpg
+  copy:
+    dest: "{{ ansible_env.HOME }}/.gnupg/gpg-agent.conf"
+    content: |
+      pinentry-program /usr/bin/pinentry-tty
+
+- name: Reload gpg agent
+  command: gpg-connect-agent reloadagent /bye
+
 - set_fact:
     repo_directory: "{{ ansible_env.HOME }}/.dotfiles"
 
