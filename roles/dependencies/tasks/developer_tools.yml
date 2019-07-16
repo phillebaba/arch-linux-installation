@@ -39,12 +39,6 @@
     name: awscli
     state: present
 
-- name: Install kubectl
-  become: true
-  pacman:
-    name: kubectl
-    state: present
-
 - name: Install jq
   become: true
   pacman:

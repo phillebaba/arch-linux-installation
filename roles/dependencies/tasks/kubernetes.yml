@@ -1,0 +1,12 @@
+---
+- name: Install kubectl
+  become: true
+  pacman:
+    name: kubectl
+    state: present
+
+- name: Install kubectx
+  become: true
+  pacman:
+    name: kubectx
+    state: present

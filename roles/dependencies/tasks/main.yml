@@ -5,3 +5,4 @@
 - import_tasks: zsh.yml
 - import_tasks: applications.yml
 - import_tasks: developer_tools.yml
+- import_tasks: kubernetes.yml
