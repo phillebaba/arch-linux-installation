@@ -1,10 +1,4 @@
 ---
-- name: Install default terminal
-  become: true
-  pacman:
-    name: ["rxvt-unicode", "rxvt-unicode-terminfo"]
-    state: present
-
 - name: Install Firefox
   become: true
   pacman:

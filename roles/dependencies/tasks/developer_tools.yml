@@ -34,10 +34,10 @@
 
 # CLI
 - name: Install aws cli
-  become: true
   pip:
     name: awscli
     state: present
+    extra_args: --user
 
 - name: Install jq
   become: true
