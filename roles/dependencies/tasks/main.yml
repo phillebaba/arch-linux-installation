@@ -1,7 +1,7 @@
 - import_tasks: base.yml
+- import_tasks: developer_tools.yml
 - import_tasks: wm.yml
 - import_tasks: utilities.yml
 - import_tasks: terminal.yml
 - import_tasks: applications.yml
-- import_tasks: developer_tools.yml
 - import_tasks: kubernetes.yml
