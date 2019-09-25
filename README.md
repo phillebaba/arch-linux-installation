@@ -49,14 +49,14 @@ mkfs.ext4 /dev/sda4
 
 Mount root and home partitions.
 ```bash
-mount /dev/sda2 mnt
+mount /dev/sda2 /mnt
 mkdir /mnt/home
 mount /dev/sda4 /mnt/home
 ```
 
 Install the system.
 ```bash
-pacstrap -i /mnt base base-devel
+pacstrap /mnt base
 ```
 
 Generate fstab file.
@@ -82,7 +82,12 @@ exit
 reboot
 ```
 
-You should now have a clean installation of Arch that you can boot to. Using the root user is not a good idea. First enable the "wheel" group by running `visudo` and uncomment the line `# %wheel ALL=(ALL) ALL.
+You should now have a clean installation of Arch that you can boot to. Sign in as the root user and install the sudo package.
+```bash
+pacman -S sudo
+```
+
+Enable the "wheel" group by running `visudo` and uncomment the line `# %wheel ALL=(ALL) ALL.
 
 Then add a new user that belongs to the wheel group.
 ```bash
@@ -93,6 +98,7 @@ exit
 
 Sign into the new user and clone this repo. Then run the ansible playbook to complete the installation.
 ```
+sudo pacman -S git ansible
 git clone https://github.com/phillebaba/arch-linux-installation.git
 cd arch-linux-installation
 ansible-playbook -K playbook.yml
