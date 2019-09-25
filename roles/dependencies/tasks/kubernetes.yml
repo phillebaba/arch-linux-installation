@@ -15,3 +15,6 @@
 
 - name: Install kubernetes-helm-bin
   shell: yay --noconfirm -S kubernetes-helm-bin
+
+- name: Install kind-bin
+  shell: yay --noconfirm -S kind-bin
