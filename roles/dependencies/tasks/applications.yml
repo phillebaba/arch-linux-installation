@@ -1,4 +1,3 @@
----
 - name: Install Firefox
   become: true
   pacman:
@@ -19,6 +18,3 @@
 
 - name: Install Slack
   command: yay --noconfirm -S aur/slack-desktop
-
-#- name: Install Spotify
-#  shell: yay --noconfirm -S aur/spotify

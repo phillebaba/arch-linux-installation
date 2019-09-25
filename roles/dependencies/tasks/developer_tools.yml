@@ -1,10 +1,14 @@
----
 # Python
 - name: Install pip
   become: true
   pacman:
     name: [python-pip, python-virtualenv]
     state: present
+
+- name: Install virtualenvwrapper
+  pip:
+    name: virtualenvwrapper
+    extra_args: --user
 
 # Vim
 - name: Remove default vi and vim

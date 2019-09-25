@@ -1,5 +1,5 @@
 # Arch Installation
-Ansible playbook to setup a clean Arch installation from the ground up. This  playbook will install and setup XServer configure i3WM and all of the tools around it. Dotfiles used for configuration are stored in [a seperate repository](), which is fetched by the playbook.
+This repository contains some base instructions for installing Arch Linux. Start with following the step by step guide to get a base installation. Then clone this repository and run then ansible playbook to complete the installation for the user.
 
 ## Applications
 | Function | Name |
@@ -12,3 +12,88 @@ Ansible playbook to setup a clean Arch installation from the ground up. This  pl
 | Terminal Emulator | rxvt-unicode |
 | Image Viewer | Feh |
 | Pdf Viewer | zathura |
+
+## Step By Step
+Download the latest [Arch ISO](https://archlinux.org/download/), then flash it to a USB drive. When complete insert the drive into the target machine and boot from it.
+```bash
+dd bs=4M if=path/to/archlinux.iso of=/dev/sdx status=progress oflag=sync
+```
+
+To list keymaps and load a specific one.
+```bash
+localectl list-keymaps
+loadkeys <keymap>
+```
+
+Partition the storage device Arch will be installed to. Follow the below for details about what partitions to create.
+| Mount point | Partition | Type | Suggested Size |
+|---|---|---|---|
+| /boot or /efi | /dev/sda1 | EFI system partition | 260 MiB |
+| / | /dev/sda2 | Linux x86-64 root (/) | 23-32 GiB |
+| [ SWAP ] | /dev/sda3 | Linux Swap | 23-32 GiB |
+| /home | /dev/sda4 | Linux /home | Remainder of device |
+
+```bash
+cfdisk /dev/sda
+```
+Format the new partitions.
+```bash
+mkfs.fat -F32 /dev/sda1 # EFI needs to be FAT partition
+
+mkswap /dev/sda3
+swapon /dev/sda3
+
+mkfs.ext4 /dev/sda2
+mkfs.ext4 /dev/sda4
+```
+
+Mount root and home partitions.
+```bash
+mount /dev/sda2 mnt
+mkdir /mnt/home
+mount /dev/sda4 /mnt/home
+```
+
+Install the system.
+```bash
+pacstrap -i /mnt base base-devel
+```
+
+Generate fstab file.
+```bash
+genfstab -U -p /mnt >> /mnt/etc/fstab
+```
+
+Chroot to installed system.
+```bash
+arch-chroot /mnt /bin/bash
+```
+
+Install grub and efi boot manager, then set them up.
+```bash
+pacman -S grub efibootmgr
+mkdir /boot/efi
+mount /dev/sda1 /boot/efi
+
+grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi --recheck
+grub-mkconfig -o /boot/grub/grub.cfg
+
+exit
+reboot
+```
+
+You should now have a clean installation of Arch that you can boot to. Using the root user is not a good idea. First enable the "wheel" group by running `visudo` and uncomment the line `# %wheel ALL=(ALL) ALL.
+
+Then add a new user that belongs to the wheel group.
+```bash
+useradd -m -g users -G wheel -s /bin/bash <username>
+passwd <username>
+exit
+```
+
+Sign into the new user and clone this repo. Then run the ansible playbook to complete the installation.
+```
+git clone https://github.com/phillebaba/arch-linux-installation.git
+cd arch-linux-installation
+ansible-playbook -K playbook.yml
+```

@@ -1,4 +1,3 @@
----
 - name: Install wicd
   become: true
   pacman:
@@ -16,12 +15,6 @@
 
 - name: Install clipit
   shell: yay --noconfirm -S aur/clipster
-
-- name: Install deepin screenshot
-  become: true
-  pacman:
-    name: deepin-screenshot
-    state: present
 
 - name: Install udiskie
   become: true

@@ -1,17 +1,37 @@
----
-- name: Create .ssh directory
+- name: Assert that mandatory variables are defined
+  assert:
+    that:
+      - timezone is defined # Timezone in the format of Zone/SubZone
+      - locales is defined # One or more locales in /etc/locale.conf
+      - keyboard_layout is defined
+      - hostname is defined
+
+- name: Set timezone
+  become: true
   file:
-    path: "{{ ansible_env.HOME }}/.ssh"
-    state: directory
+    src: "/usr/share/zoneinfo/{{ timezone }}"
+    dest: /etc/localtime
+    state: link
 
-- set_fact:
-    key_path: "{{ ansible_env.HOME }}/.ssh/id_rsa"
+- name: Set the Hardware Clock from the System Clock
+  become: true
+  command: hwclock --systohc
 
-# Replace with openssh_keypair when Ansible 2.8 is released
-- name: Generate rsa key pair for machine
-  command : "ssh-keygen -q -t rsa -f {{ key_path }} -C '' -N ''"
-  args:
-    creates: "{{ key_path }}"
+- name: Set and generate locales
+  become: true
+  locale_gen:
+    name: "{{ locales }}"
+    state: present
+
+- name: Set keyboard layout
+  become: true
+  command: "localectl set-keymap --no-convert {{ keyboard_layout }}"
+
+- name: Set computer hostname
+  become: true
+  copy:
+    content: "{{ hostname }}"
+    dest: "/etc/hostname"
 
 - name: Create user directories
   file:
@@ -23,4 +43,3 @@
     - code
     - documents
     - pictures
-

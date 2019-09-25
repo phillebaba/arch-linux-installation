@@ -1,4 +1,3 @@
----
 - name: Install kubectl
   become: true
   pacman:
@@ -10,3 +9,9 @@
   pacman:
     name: kubectx
     state: present
+
+- name: Install eksctl-bin
+  shell: yay --noconfirm -S eksctl-bin
+
+- name: Install kubernetes-helm-bin
+  shell: yay --noconfirm -S kubernetes-helm-bin

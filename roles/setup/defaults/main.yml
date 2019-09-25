@@ -1,0 +1,4 @@
+timezone: Europe/Stockholm
+locales: en_US.UTF-8
+keyboard_layout: sv-latin1
+hostname: control-center

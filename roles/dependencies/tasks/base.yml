@@ -1,4 +1,3 @@
----
 - name: Blacklist pcspkr from being loaded by kernel (beep)
   become: true
   copy:
@@ -15,6 +14,12 @@
   become: true
   pacman:
     name: ttf-dejavu
+    state: present
+
+- name: Install base-devel
+  become: true
+  pacman:
+    name: base-devel
     state: present
 
 - name: Install yay
