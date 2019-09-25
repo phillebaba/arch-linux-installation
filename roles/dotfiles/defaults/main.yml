@@ -1,2 +1,2 @@
-dotfiles_repo: git@github.com:phillebaba/dotfiles.git
+dotfiles_repo: https://github.com/phillebaba/dotfiles.git
 dotfiles_directory: "{{ ansible_env.HOME}}/.dotfiles"
