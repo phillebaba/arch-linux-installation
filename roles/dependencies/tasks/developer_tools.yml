@@ -10,6 +10,13 @@
     name: virtualenvwrapper
     extra_args: --user
 
+# Go
+- name: Install dep
+  become: true
+  pacman:
+    name: dep
+    state: present
+
 # Vim
 - name: Remove default vi and vim
   become: true
