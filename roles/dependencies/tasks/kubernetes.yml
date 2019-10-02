@@ -10,6 +10,9 @@
     name: kubectx
     state: present
 
+- name: Install kustomize-bin
+  shell: yay --noconfirm -S kustomize-bin
+
 - name: Install eksctl-bin
   shell: yay --noconfirm -S eksctl-bin
 
