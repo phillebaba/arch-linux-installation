@@ -1,23 +1,9 @@
-- name: Install urxvt terminal
+- name: Install kitty terminal
   become: true
   pacman:
     name:
-      - rxvt-unicode
-      - rxvt-unicode-terminfo
+      - kitty
     state: present
-
-- name: Add urxvt extensions
-  block:
-    - set_fact:
-        extension_directory: "{{ ansible_env.HOME }}/.urxvt/ext"
-
-    - file:
-        path: "{{ extension_directory }}"
-        state: directory
-
-    - get_url:
-        url: https://raw.githubusercontent.com/pkkolos/urxvt-scripts/master/vtwheel
-        dest: "{{ extension_directory }}/vtwheel"
 
 - name: Install zsh shell
   become: true
