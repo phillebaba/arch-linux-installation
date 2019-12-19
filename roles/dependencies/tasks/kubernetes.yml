@@ -4,6 +4,9 @@
     name: kubectl
     state: present
 
+- name: install krew (package manager for kubectl)
+  shell: yay --noconfirm -S krew-bin
+
 - name: Install kubectx
   become: true
   pacman:
