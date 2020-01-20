@@ -1,14 +1,17 @@
-- name: Install wicd
-  shell: yay --needed --noconfirm -S aur/wicd-gtk-git
+- name: Install NetworkManager
+  become: true
+  pacman:
+    name: networkmanager
+    state: present
 
-- name: Start wicd service and enable it
+- name: Start networkmanager service and enable it
   become: true
   systemd:
-    name: wicd
+    name: NetworkManager
     state: started
     enabled: true
 
-- name: Install clipit
+- name: Install clipster
   shell: yay --noconfirm -S aur/clipster
 
 - name: Install udiskie
