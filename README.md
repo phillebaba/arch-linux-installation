@@ -25,7 +25,15 @@ localectl list-keymaps
 loadkeys <keymap>
 ```
 
+Make sure that you have an internet connection.
+```bash
+curl google.com
+```
+
 Partition the storage device Arch will be installed to. Follow the below for details about what partitions to create.
+```bash
+cfdisk /dev/sda
+```
 
 | Mount point | Partition | Type | Suggested Size |
 | --- | --- | --- | --- |
@@ -34,9 +42,6 @@ Partition the storage device Arch will be installed to. Follow the below for det
 | [ SWAP ] | /dev/sda3 | Linux Swap | 23-32 GiB |
 | /home | /dev/sda4 | Linux /home | Remainder of device |
 
-```bash
-cfdisk /dev/sda
-```
 Format the new partitions.
 ```bash
 mkfs.fat -F32 /dev/sda1 # EFI needs to be FAT partition
