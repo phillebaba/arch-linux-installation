@@ -26,8 +26,9 @@ loadkeys <keymap>
 ```
 
 Partition the storage device Arch will be installed to. Follow the below for details about what partitions to create.
+
 | Mount point | Partition | Type | Suggested Size |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | /boot or /efi | /dev/sda1 | EFI system partition | 260 MiB |
 | / | /dev/sda2 | Linux x86-64 root (/) | 23-32 GiB |
 | [ SWAP ] | /dev/sda3 | Linux Swap | 23-32 GiB |
