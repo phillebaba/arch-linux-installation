@@ -1,10 +1,5 @@
 - name: Install wicd
-  become: true
-  pacman:
-    name:
-      - wicd
-      - notification-daemon
-      - python2-notify
+  shell: yay --needed --noconfirm -S aur/wicd-gtk-git
 
 - name: Start wicd service and enable it
   become: true
