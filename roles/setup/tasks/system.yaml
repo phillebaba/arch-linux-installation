@@ -1,0 +1,32 @@
+- name: Set timezone
+  become: true
+  file:
+    src: "/usr/share/zoneinfo/{{ timezone }}"
+    dest: /etc/localtime
+    state: link
+
+- name: Set the Hardware Clock from the System Clock
+  become: true
+  command: hwclock --systohc
+
+- name: Set and generate locales
+  become: true
+  locale_gen:
+    name: "{{ locales }}"
+    state: present
+
+- name: Set keyboard layout
+  become: true
+  command: "localectl set-keymap --no-convert {{ keyboard_layout }}"
+
+- name: Set computer hostname
+  become: true
+  copy:
+    content: "{{ hostname }}"
+    dest: "/etc/hostname"
+
+- name: Blacklist pcspkr from being loaded by kernel (beep)
+  become: true
+  copy:
+    content: blacklist pcspkr
+    dest: /etc/modprobe.d/nobeep.conf

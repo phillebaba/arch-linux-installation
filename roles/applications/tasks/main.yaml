@@ -1,3 +1,10 @@
+- name: Install kitty terminal
+  become: true
+  pacman:
+    name:
+      - kitty
+    state: present
+
 - name: Install Firefox
   become: true
   pacman:

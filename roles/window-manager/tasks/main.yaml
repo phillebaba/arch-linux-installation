@@ -1,11 +1,11 @@
+- name: Install Nerd Font
+  shell: yay --needed --noconfirm -S aur/nerd-fonts-complete
+
 - name: Install xorg dependencies
   become: true
   pacman:
     name: ["xorg", "xorg-xinit"]
     state: present
-
-- name: Install Nerd Font
-  shell: yay --needed --noconfirm -S aur/nerd-fonts-complete
 
 - name: Install i3WM and addons
   become: true

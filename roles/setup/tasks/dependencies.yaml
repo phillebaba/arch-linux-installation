@@ -1,0 +1,22 @@
+- name: Install base-devel
+  become: true
+  pacman:
+    name: base-devel
+    state: present
+
+- name: Install git
+  become: true
+  pacman:
+    name: git
+    state: present
+
+- name: Install yay
+  become: true
+  shell: |
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    makepkg -si --noconfirm
+    cd ..
+    rm -rf yay
+  args:
+    creates: /usr/bin/yay

@@ -1,15 +1,8 @@
-- name: Install NetworkManager
+- name: Install jq
   become: true
   pacman:
-    name: networkmanager
+    name: jq
     state: present
-
-- name: Start networkmanager service and enable it
-  become: true
-  systemd:
-    name: NetworkManager
-    state: started
-    enabled: true
 
 - name: Install clipster
   shell: yay --noconfirm -S aur/clipster

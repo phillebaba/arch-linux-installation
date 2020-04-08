@@ -1,0 +1,11 @@
+- name: Install aws cli
+  pip:
+    name: awscli
+    state: present
+    extra_args: --user
+
+- name: Install terraform
+  become: true
+  pacman:
+    name: terraform
+    state: present

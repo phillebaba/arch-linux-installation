@@ -6,40 +6,6 @@
       - keyboard_layout is defined
       - hostname is defined
 
-- name: Set timezone
-  become: true
-  file:
-    src: "/usr/share/zoneinfo/{{ timezone }}"
-    dest: /etc/localtime
-    state: link
-
-- name: Set the Hardware Clock from the System Clock
-  become: true
-  command: hwclock --systohc
-
-- name: Set and generate locales
-  become: true
-  locale_gen:
-    name: "{{ locales }}"
-    state: present
-
-- name: Set keyboard layout
-  become: true
-  command: "localectl set-keymap --no-convert {{ keyboard_layout }}"
-
-- name: Set computer hostname
-  become: true
-  copy:
-    content: "{{ hostname }}"
-    dest: "/etc/hostname"
-
-- name: Create user directories
-  file:
-    path: "{{ ansible_env.HOME }}/{{ item }}"
-    state: directory
-    mode: 0755
-  with_items:
-    - downloads
-    - code
-    - documents
-    - pictures
+- import_tasks: system.yaml
+- import_tasks: dependencies.yaml
+- import_tasks: dotfiles.yaml
