@@ -13,21 +13,29 @@ This repository contains some base instructions for installing Arch Linux. Start
 | Image Viewer | Feh |
 | Pdf Viewer | zathura |
 
-## Step By Step
+## Preparation
 Download the latest [Arch ISO](https://archlinux.org/download/), then flash it to a USB drive. When complete insert the drive into the target machine and boot from it.
 ```bash
 dd bs=4M if=path/to/archlinux.iso of=/dev/sdx status=progress oflag=sync
 ```
 
-To list keymaps and load a specific one.
+## Steps
+List available keymaps and set correct keyboard layout.
 ```bash
 localectl list-keymaps
-loadkeys <keymap>
+loadkeys sv-latin1
+```
+
+Setup network connection. If connected with ethernet negotiate an IP address, or cofigure a WIFI connection.
+```bash
+$ dhcpcd
+or
+$ wifi-menu
 ```
 
 Make sure that you have an internet connection.
 ```bash
-curl google.com
+$ curl google.com
 ```
 
 Partition the storage device Arch will be installed to. Follow the below for details about what partitions to create.
@@ -37,9 +45,9 @@ cfdisk /dev/sda
 
 | Mount point | Partition | Type | Suggested Size |
 | --- | --- | --- | --- |
-| /boot or /efi | /dev/sda1 | EFI system partition | 260 MiB |
+| /boot/efi | /dev/sda1 | EFI system partition | 512 MiB |
 | / | /dev/sda2 | Linux x86-64 root (/) | 23-32 GiB |
-| [ SWAP ] | /dev/sda3 | Linux Swap | 23-32 GiB |
+| [ SWAP ] | /dev/sda3 | Linux Swap | More than 512 MiB |
 | /home | /dev/sda4 | Linux /home | Remainder of device |
 
 Format the new partitions.
@@ -62,17 +70,17 @@ mount /dev/sda4 /mnt/home
 
 Install the system.
 ```bash
-pacstrap /mnt base
+pacstrap /mnt base linux linux-firmware dhcpcd vi
 ```
 
 Generate fstab file.
 ```bash
-genfstab -U -p /mnt >> /mnt/etc/fstab
+genfstab -U /mnt >> /mnt/etc/fstab
 ```
 
 Chroot to installed system.
 ```bash
-arch-chroot /mnt /bin/bash
+arch-chroot /mnt
 ```
 
 Install grub and efi boot manager, then set them up.
@@ -81,7 +89,7 @@ pacman -S grub efibootmgr
 mkdir /boot/efi
 mount /dev/sda1 /boot/efi
 
-grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi --recheck
+grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi
 grub-mkconfig -o /boot/grub/grub.cfg
 
 exit
@@ -93,7 +101,7 @@ You should now have a clean installation of Arch that you can boot to. Sign in a
 pacman -S sudo
 ```
 
-Enable the "wheel" group by running `visudo` and uncomment the line `# %wheel ALL=(ALL) ALL.
+Enable the "wheel" group by running `visudo` and uncomment the line `# %wheel ALL=(ALL) ALL.`
 
 Then add a new user that belongs to the wheel group.
 ```bash
@@ -109,3 +117,6 @@ git clone https://github.com/phillebaba/arch-linux-installation.git
 cd arch-linux-installation
 ansible-playbook -K playbook.yml
 ```
+## TODO
+* Configure updating of mirrors
+* Look over NTP configuration
