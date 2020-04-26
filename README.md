@@ -120,3 +120,4 @@ ansible-playbook -K playbook.yml
 ## TODO
 * Configure updating of mirrors
 * Look over NTP configuration
+* Fix yay installation failure
