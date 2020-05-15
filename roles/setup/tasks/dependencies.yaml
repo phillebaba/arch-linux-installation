@@ -11,12 +11,14 @@
     state: present
 
 - name: Install yay
-  become: true
-  shell: |
-    git clone https://aur.archlinux.org/yay.git
-    cd yay
-    makepkg -si --noconfirm
-    cd ..
-    rm -rf yay
-  args:
-    creates: /usr/bin/yay
+  block:
+    - tempfile:
+        state: directory
+      register: temp
+    - shell: |
+        git clone https://aur.archlinux.org/yay.git
+        cd yay
+        makepkg -si --noconfirm
+      args:
+        chdir: "{{ temp.path }}"
+        creates: /usr/bin/yay
