@@ -3,3 +3,21 @@
   pacman:
     name: docker
     state: present
+
+- name: Start docker service
+  become: true
+  service:
+    name: docker
+    state: started
+    enabled: true
+  become: true
+
+- name: Add user to docker group
+  block:
+    - command: whoami
+      register: current_user
+    - user:
+        name: "{{ current_user.stdout }}"
+        groups: docker
+        append: true
+      become: true

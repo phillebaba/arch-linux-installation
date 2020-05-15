@@ -1,3 +1,26 @@
+- name: Configure mirror update
+  block:
+    - copy:
+        dest: "/etc/systemd/system/reflector.service"
+        content: |
+          [Unit]
+          Description=Pacman mirrorlist update
+          Wants=network-online.target
+          After=network-online.target
+
+          [Service]
+          Type=oneshot
+          ExecStart=/usr/bin/reflector --protocol https --latest 30 --number 20 --sort rate --save /etc/pacman.d/mirrorlist
+
+          [Install]
+          RequiredBy=multi-user.target
+      become: true
+    - service:
+        name: reflector
+        state: started
+        enabled: true
+      become: true
+
 - name: Install base-devel
   become: true
   pacman:

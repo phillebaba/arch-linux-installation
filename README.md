@@ -117,7 +117,3 @@ git clone https://github.com/phillebaba/arch-linux-installation.git
 cd arch-linux-installation
 ansible-playbook -K playbook.yml
 ```
-## TODO
-* Configure updating of mirrors
-* Look over NTP configuration
-* Fix yay installation failure

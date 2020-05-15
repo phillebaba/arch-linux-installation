@@ -5,9 +5,12 @@
     dest: /etc/localtime
     state: link
 
-- name: Set the Hardware Clock from the System Clock
+- name: Enable ntp service
   become: true
-  command: hwclock --systohc
+  service:
+    name: systemd-timesyncd
+    state: started
+    enabled: true
 
 - name: Set and generate locales
   become: true
@@ -31,9 +34,3 @@
     content: blacklist pcspkr
     dest: /etc/modprobe.d/nobeep.conf
 
-- name: Enable ntp service
-  become: true
-  service:
-    name: systemd-timesyncd
-    state: started
-    enabled: true
