@@ -31,27 +31,8 @@
     name: openssh
     state: present
 
-- name: Install pass
-  become: true
-  pacman:
-    name: pass
-    state: present
-
 - name: Install thefuck
   become: true
   pacman:
     name: thefuck
     state: present
-
-- name: Install ykman
-  become: true
-  pacman:
-    name: yubikey-manager
-    state: present
-
-- name: Start and enable pcscd for ykman
-  become: true
-  service:
-    name: pcscd
-    state: started
-    enabled: true
