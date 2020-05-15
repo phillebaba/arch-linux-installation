@@ -30,3 +30,10 @@
   copy:
     content: blacklist pcspkr
     dest: /etc/modprobe.d/nobeep.conf
+
+- name: Enable ntp service
+  become: true
+  service:
+    name: systemd-timesyncd
+    state: started
+    enabled: true
