@@ -1,9 +1,3 @@
-- name: Install jq
-  become: true
-  pacman:
-    name: jq
-    state: present
-
 - name: Install clipster
   shell: yay --noconfirm -S aur/clipster
 
@@ -35,4 +29,18 @@
   become: true
   pacman:
     name: thefuck
+    state: present
+
+- name: Install jq
+  become: true
+  pacman:
+    name: jq
+    state: present
+
+- name: Install nodejs
+  become: true
+  pacman:
+    name:
+    - nodejs
+    - npm
     state: present
