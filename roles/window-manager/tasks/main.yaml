@@ -1,5 +1,7 @@
 - name: Install Nerd Font
   shell: yay --needed --noconfirm -S aur/nerd-fonts-complete
+  args:
+    creates: /usr/share/fonts/nerd-fonts-complete
 
 - name: Install xorg dependencies
   become: true
@@ -15,9 +17,6 @@
 
 - name: Install polybar
   shell: yay --noconfirm -S aur/polybar
-
-- name: Install betterlockscreen
-  shell: yay --needed --noconfirm -S aur/betterlockscreen
 
 - name: Install Dunst (Notification Daemon)
   become: true
@@ -41,3 +40,13 @@
   pacman:
     name: compton
     state: present
+
+- name: Install betterlockscreen
+  shell: yay --needed --noconfirm -S aur/betterlockscreen
+
+- name: Enable betterlockscreen auto lock service
+  become: true
+  service:
+    name: "betterlockscreen@{{ ansible_user }}"
+    state: started
+    enabled: true

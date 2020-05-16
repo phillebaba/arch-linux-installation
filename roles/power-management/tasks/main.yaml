@@ -1,0 +1,12 @@
+- name: Install tlp
+  become: true
+  pacman:
+    name: tlp
+    state: present
+
+- name: Start tlp service
+  become: true
+  service:
+    name: tlp
+    state: started
+    enabled: true
