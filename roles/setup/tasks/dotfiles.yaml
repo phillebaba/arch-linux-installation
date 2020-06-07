@@ -20,26 +20,14 @@
     path: "{{ dotfiles_directory }}"
   register: dotfiles
 
-- block:
-    - name: Clone dotfiles repo
-      git:
-        repo: "{{ dotfiles_repo }}"
-        dest: "{{ dotfiles_directory }}"
-        clone: true
+- name: Clone dotfiles repo
+  git:
+    repo: "{{ dotfiles_repo }}"
+    dest: "{{ dotfiles_directory }}"
+    clone: true
   when: dotfiles.stat.exists == false
 
-- name: Get directories in dotfiles
-  find:
-    paths: "{{ dotfiles_directory }}"
-    file_type: directory
-    recurse: false
-  register: directories
-
-- debug:
-    var: directories
-
 - name: Stow all directories in dotfiles
-  command: stow "{{ item.path | basename }}"
+  command: "stow --target={{ ansible_env.HOME }} --dir={{ dotfiles_directory }} ."
   args:
-    chdir: "{{ dotfiles_directory }}"
-  with_items: "{{ directories.files }}"
+    chdir: "{{ ansible_env.HOME }}"

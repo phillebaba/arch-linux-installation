@@ -1,0 +1,15 @@
+- name: Disable root login
+  shell: passwd -l root
+  become: true
+
+- name: Install ufw
+  pacman:
+    name: ufw
+    state: present
+  become: true
+
+- name: Deny everything and enable UFW
+  ufw:
+    state: enabled
+    policy: deny
+  become: true

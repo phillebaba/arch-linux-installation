@@ -10,7 +10,6 @@
     name: docker
     state: started
     enabled: true
-  become: true
 
 - name: Add user to docker group
   block:

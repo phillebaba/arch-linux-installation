@@ -1,5 +1,8 @@
-- name: Install clipster
-  shell: yay --noconfirm -S aur/clipster
+- name: Install jq
+  become: true
+  pacman:
+    name: jq
+    state: present
 
 - name: Install udiskie
   become: true
