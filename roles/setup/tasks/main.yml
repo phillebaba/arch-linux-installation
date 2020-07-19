@@ -7,4 +7,4 @@
 
 - import_tasks: system.yaml
 - import_tasks: security.yaml
-#- import_tasks: dotfiles.yaml
+- import_tasks: dotfiles.yaml

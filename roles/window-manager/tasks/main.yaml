@@ -1,4 +1,4 @@
-- name: Install Nerd Font
+- name: Install Font
   shell: yay --needed --noconfirm -S nerd-fonts-inconsolata
 
 - name: Install xorg dependencies
@@ -32,6 +32,9 @@
   pacman:
     name: feh
     state: present
+
+- name: Install xlayoutdisplay
+  shell: yay --needed --noconfirm -S xlayoutdisplay
 
 - name: DWM Setup
   block:

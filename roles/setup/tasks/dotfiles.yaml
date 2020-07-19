@@ -24,7 +24,7 @@
   git:
     repo: "{{ dotfiles_repo }}"
     dest: "{{ dotfiles_directory }}"
-    clone: true
+    refspec: dwm
   when: dotfiles.stat.exists == false
 
 - name: Stow all directories in dotfiles
