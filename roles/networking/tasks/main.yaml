@@ -1,15 +1,15 @@
-- name: Install NetworkManager
-  become: true
-  pacman:
-    name: networkmanager
-    state: present
-
-- name: Start networkmanager service and enable it
-  become: true
-  systemd:
-    name: NetworkManager
-    state: started
-    enabled: true
+#- name: Install NetworkManager
+#  become: true
+#  pacman:
+#    name: networkmanager
+#    state: present
+#
+#- name: Start networkmanager service and enable it
+#  become: true
+#  systemd:
+#    name: NetworkManager
+#    state: started
+#    enabled: true
 
 - name: Install curl and wget
   become: true

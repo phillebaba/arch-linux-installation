@@ -1,8 +1,8 @@
 - import_tasks: shell.yaml
+- import_tasks: python.yaml
 - import_tasks: vim.yaml
 - import_tasks: general.yaml
 - import_tasks: cloud.yaml
 - import_tasks: docker.yaml
 - import_tasks: kubernetes.yaml
-- import_tasks: python.yaml
 - import_tasks: password-manager.yaml
