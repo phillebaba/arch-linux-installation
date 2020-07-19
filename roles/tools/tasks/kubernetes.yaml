@@ -17,4 +17,4 @@
   shell: yay --noconfirm -S eksctl
 
 - name: Install kind
-  shell: yay --noconfirm -S kind-bin
+  shell: yay --noconfirm -S kind

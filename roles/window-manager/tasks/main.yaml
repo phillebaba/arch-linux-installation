@@ -38,10 +38,23 @@
     - name: Clone DWM repo
       git:
         repo: "https://github.com/phillebaba/dwm.git"
-        dest: "{{ ansible_env.HOME }}/dev/dwm"
+        dest: "{{ ansible_env.HOME }}/code/dwm"
         refspec: "patches"
     - name: Install DWM
       command: make clean install
       args:
-        chdir: "{{ ansible_env.HOME }}/dev/dwm"
+        chdir: "{{ ansible_env.HOME }}/code/dwm"
+      become: true
+
+- name: ST Setup
+  block:
+    - name: Clone ST repo
+      git:
+        repo: "https://github.com/phillebaba/st.git"
+        dest: "{{ ansible_env.HOME }}/code/st"
+        refspec: "patches"
+    - name: Install ST
+      command: make clean install
+      args:
+        chdir: "{{ ansible_env.HOME }}/code/st"
       become: true
