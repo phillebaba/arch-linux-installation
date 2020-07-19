@@ -1,7 +1,5 @@
 - name: Install Nerd Font
   shell: yay --needed --noconfirm -S nerd-fonts-inconsolata
-  args:
-    creates: /usr/share/fonts/nerd-fonts-complete
 
 - name: Install xorg dependencies
   become: true
@@ -34,3 +32,16 @@
   pacman:
     name: feh
     state: present
+
+- name: DWM Setup
+  block:
+    - name: Clone DWM repo
+      git:
+        repo: "https://github.com/phillebaba/dwm.git"
+        dest: "{{ ansible_env.HOME }}/dev/dwm"
+        refspec: "patches"
+    - name: Install DWM
+      command: make clean install
+      args:
+        chdir: "{{ ansible_env.HOME }}/dev/dwm"
+      become: true
