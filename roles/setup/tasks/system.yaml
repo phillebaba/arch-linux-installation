@@ -22,12 +22,6 @@
   become: true
   command: "localectl set-keymap --no-convert {{ keyboard_layout }}"
 
-- name: Set computer hostname
-  become: true
-  copy:
-    content: "{{ hostname }}"
-    dest: "/etc/hostname"
-
 - name: Blacklist pcspkr from being loaded by kernel (beep)
   become: true
   copy:
