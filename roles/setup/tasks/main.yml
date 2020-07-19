@@ -4,8 +4,7 @@
       - timezone is defined # Timezone in the format of Zone/SubZone
       - locales is defined # One or more locales in /etc/locale.conf
       - keyboard_layout is defined
-      - hostname is defined
 
 - import_tasks: system.yaml
 - import_tasks: security.yaml
-- import_tasks: dotfiles.yaml
+#- import_tasks: dotfiles.yaml
