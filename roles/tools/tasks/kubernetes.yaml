@@ -10,6 +10,12 @@
     name: kubectx
     state: present
 
+- name: Install Helm
+  become: true
+  pacman:
+    name: helm
+    state: present
+
 - name: Install kustomize
   shell: yay --noconfirm -S kustomize-bin
 
@@ -18,3 +24,6 @@
 
 - name: Install kind
   shell: yay --noconfirm -S kind
+
+- name: Install OPA
+  shell: yay --noconfirm -S opa

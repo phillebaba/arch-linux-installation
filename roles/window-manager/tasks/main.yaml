@@ -22,6 +22,12 @@
     name: dunst
     state: present
 
+- name: Install imagemagick
+  become: true
+  pacman:
+    name: imagemagick
+    state: present
+
 - name: Install pywal
   pip:
     name: pywal
@@ -43,6 +49,7 @@
         repo: "https://github.com/phillebaba/dwm.git"
         dest: "{{ ansible_env.HOME }}/code/dwm"
         refspec: "patches"
+        clone: false
     - name: Install DWM
       command: make clean install
       args:
@@ -56,6 +63,7 @@
         repo: "https://github.com/phillebaba/st.git"
         dest: "{{ ansible_env.HOME }}/code/st"
         refspec: "patches"
+        clone: false
     - name: Install ST
       command: make clean install
       args:

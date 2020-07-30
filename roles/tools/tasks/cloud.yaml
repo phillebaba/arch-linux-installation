@@ -4,6 +4,9 @@
     state: present
     extra_args: --user
 
+- name: Install Azure CLI
+  shell: yay --noconfirm -S azure-cli
+
 - name: Install terraform
   become: true
   pacman:
