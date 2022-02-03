@@ -1,36 +1,140 @@
-- name: Install Nerd Font
-  shell: yay --needed --noconfirm -S nerd-fonts-inconsolata
-  args:
-    creates: /usr/share/fonts/nerd-fonts-complete
+- name: Install fonts
+  become: true
+  pacman:
+    name: 
+      - noto-fonts
+    state: present
 
-- name: Install xorg dependencies
+- name: River WM
+  block:
+    - name: Install River WM
+      shell: yay --needed --noconfirm -S river
+      args:
+        creates: /usr/bin/river
+    - name: Copy wallpaper
+      copy:
+        src: ../files/wallpaper.jpg
+        dest: ~/.config/wallpaper.jpg
+        mode: 0644
+    - name: Copy River init script
+      block:
+        - file:
+            path: ~/.config/river
+            state: directory
+        - copy:
+            src: ../files/river/init
+            dest: ~/.config/river/init
+            mode: 0755
+
+- name: Waybar
+  block:
+    - name: Install
+      become: true
+      pacman:
+        name: waybar
+        state: present
+    - file:
+        path: ~/.config/waybar
+        state: directory
+    - copy:
+        src: ../files/waybar/config
+        dest: ~/.config/waybar/config
+        mode: 0644
+    - copy:
+        src: ../files/waybar/style.css
+        dest: ~/.config/waybar/style.css
+        mode: 0644
+
+- name: Install kickoff
+  shell: yay --needed --noconfirm -S kickoff
+  args:
+    creates: /sbin/kickoff
+
+- name: Notifications
+  block:
+    - name: Install
+      become: true
+      pacman:
+        name: mako
+        state: present
+    - file:
+        path: ~/.config/mako
+        state: directory
+    - name: Mako config
+      copy:
+        src: ../files/mako/config
+        dest: ~/.config/mako/config
+
+- name: Screen Locking
+  block:
+    - name: Install
+      become: true
+      pacman:
+        name: 
+          - waylock
+          - swayidle
+        state: present
+    - file:
+        path: ~/.config/waylock
+        state: directory
+    - name: Waylock config
+      copy:
+        src: ../files/waylock/waylock.toml
+        dest: ~/.config/waylock/waylock.toml
+    - file:
+        path: ~/.config/swayidle
+        state: directory
+    - name: Swayidle config
+      copy:
+        src: ../files/swayidle/config
+        dest: ~/.config/swayidle/config
+
+- name: Install swaybg
+  become: true
+  pacman:
+    name: swaybg
+    state: present
+
+- name: Screen management
+  block: 
+    - name: Install kanshi
+      become: true
+      pacman:
+        name: kanshi
+        state: present
+    - name: Install wlay
+      shell: yay --needed --noconfirm -S wlay-git
+      args:
+        creates: /sbin/wlay
+
+- name: Screenshot
+  block:
+    - name: Install
+      become: true
+      pacman:
+        name:
+          - slurp
+          - grim
+        state: present
+
+- name: Tools
+  block:
+    - name: Install wl-clipboard
+      become: true
+      pacman:
+        name: wl-clipboard
+        state: present
+    - name: Install light
+      become: true
+      pacman:
+        name: light
+        state: present
+
+# Xorg
+- name: Install xorg compatibility
   become: true
   pacman:
     name:
-      - xorg
-      - xorg-xinit
-      - xcompmgr
-    state: present
-
-- name: Install slock
-  become: true
-  pacman:
-    name: slock
-    state: present
-
-- name: Install Dunst (Notification Daemon)
-  become: true
-  pacman:
-    name: dunst
-    state: present
-
-- name: Install pywal
-  pip:
-    name: pywal
-    extra_args: --user
-
-- name: Install Feh
-  become: true
-  pacman:
-    name: feh
+      - xorg-xwayland
+      - xorg-xeyes
     state: present

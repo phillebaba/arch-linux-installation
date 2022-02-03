@@ -1,20 +1,7 @@
-- name: Install kitty terminal
-  become: true
-  pacman:
-    name:
-      - kitty
-    state: present
-
 - name: Install Firefox
   become: true
   pacman:
     name: firefox
-    state: present
-
-- name: Install Arandr
-  become: true
-  pacman:
-    name: arandr
     state: present
 
 - name: Install Zathura (PDF Viewer)
@@ -25,3 +12,10 @@
 
 - name: Install Slack
   command: yay --noconfirm -S aur/slack-desktop
+  args:
+    creates: /sbin/slack
+
+- name: Install Spotify
+  command: yay --noconfirm -S spotify
+  args:
+    creates: /sbin/spotify

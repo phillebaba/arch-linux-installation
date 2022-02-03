@@ -1,0 +1,41 @@
+- name: Remove default vi and vim
+  become: true
+  pacman:
+    name:
+      - vi
+      - vim
+    state: absent
+- name: Install neovim
+  become: true
+  pacman:
+    name: neovim
+    state: present
+- name: Install vim symlinks
+  shell: yay --needed --noconfirm -S neovim-symlinks
+- name: Install nvim packer
+  shell: yay --needed --noconfirm -S nvim-packer-git
+
+- name: Install language servers
+  block:
+    - become: true
+      pacman:
+        name:
+          - gopls
+          - bash-language-server
+          - texlab
+          - fd
+        state: present
+    - shell: yay --needed --noconfirm -S tflint-bin
+
+- file:
+    path: "~/.config/nvim/{{ item.path }}"
+    state: directory
+    mode: '{{ item.mode }}'
+  with_filetree: files/nvim
+  when: item.state == 'directory'
+- name: nvim config
+  copy:
+    src: "{{ item.src }}"
+    dest: "~/.config/nvim/{{ item.path }}"
+  with_filetree: "files/nvim"
+  when: item.state == "file"

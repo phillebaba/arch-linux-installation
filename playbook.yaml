@@ -1,10 +1,9 @@
 - hosts: 127.0.0.1
   connection: local
   roles:
-    - setup
-    - networking
-    - bluetooth
+    #- system
+    #- networking
+    - shell
+    #- window-manager
     - tools
-    - window-manager
-    - applications
-    - power-management
+    #- power-management

@@ -1,11 +1,9 @@
-- name: Install aws cli
-  pip:
-    name: awscli
-    state: present
-    extra_args: --user
-
 - name: Install terraform
-  become: true
-  pacman:
-    name: terraform
-    state: present
+  shell: yay --needed --noconfirm -S tfenv
+  #args:
+  #  creates: /usr/bin/river
+
+- name: Install AWS CLI
+  shell: yay --needed --noconfirm -S aws-cli-v2-bin
+  args:
+    creates: /sbin/aws

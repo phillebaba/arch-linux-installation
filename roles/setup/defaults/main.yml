@@ -1,7 +1,0 @@
-timezone: Europe/Stockholm
-locales: en_US.UTF-8
-keyboard_layout: sv-latin1
-hostname: control-center
-
-dotfiles_repo: https://github.com/phillebaba/dotfiles.git
-dotfiles_directory: "{{ ansible_env.HOME}}/.dotfiles"

@@ -1,0 +1,52 @@
+- name: Install fonts
+  shell: yay --needed --noconfirm -S nerd-fonts-fira-code
+
+- name: Install Alacritty terminal
+  become: true
+  pacman:
+    name: alacritty
+    state: present
+- name: Copy alacritty config
+  block:
+    - file:
+        path: ~/.config/alacritty
+        state: directory
+    - copy:
+        src: ../files/alacritty.yml
+        dest: ~/.config/alacritty/alacritty.yml
+
+- name: Install zsh shell
+  become: true
+  pacman:
+    name: zsh
+    state: present
+
+- name: Set zsh as default shell
+  block:
+    - command: whoami
+      register: current_user
+    - user:
+        name: "{{ current_user.stdout }}"
+        shell: /usr/bin/zsh
+      become: true
+
+- name: Install oh-my-zsh
+  shell: yay --noconfirm -S oh-my-zsh-git
+
+- name: Install zsh-autosuggestions
+  become: true
+  pacman:
+    name: zsh-autosuggestions
+    state: present
+
+- name: Copy zshenv
+  copy:
+    src: ../files/.zshenv
+    dest: ~/.zshenv
+
+- name: Copy zshrc
+  copy:
+    src: ../files/.zshrc
+    dest: ~/.zshrc
+
+- import_tasks: vim.yaml

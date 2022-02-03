@@ -1,42 +1,12 @@
-- name: Set timezone
+- name: Disable root login
+  shell: passwd -l root
   become: true
-  file:
-    src: "/usr/share/zoneinfo/{{ timezone }}"
-    dest: /etc/localtime
-    state: link
-
-- name: Enable ntp service
-  become: true
-  service:
-    name: systemd-timesyncd
-    state: started
-    enabled: true
-
-- name: Set and generate locales
-  become: true
-  locale_gen:
-    name: "{{ locales }}"
-    state: present
-
-- name: Set keyboard layout
-  become: true
-  command: "localectl set-keymap --no-convert {{ keyboard_layout }}"
-
-- name: Set computer hostname
-  become: true
-  copy:
-    content: "{{ hostname }}"
-    dest: "/etc/hostname"
 
 - name: Blacklist pcspkr from being loaded by kernel (beep)
   become: true
   copy:
     content: blacklist pcspkr
     dest: /etc/modprobe.d/nobeep.conf
-
-- name: Disable root login
-  shell: passwd -l root
-  become: true
 
 - name: Configure mirror updating
   block:
@@ -45,7 +15,6 @@
       pacman:
         name: reflector
         state: present
-
     - name: Create service configuration
       copy:
         dest: "/etc/systemd/system/reflector.service"
@@ -62,25 +31,11 @@
           [Install]
           RequiredBy=multi-user.target
       become: true
-
-    - name: Start and enable service
+    - name: Start and enable relector service
       service:
         name: reflector
-        state: started
         enabled: true
       become: true
-
-- name: Install base-devel
-  become: true
-  pacman:
-    name: base-devel
-    state: present
-
-- name: Install git
-  become: true
-  pacman:
-    name: git
-    state: present
 
 - name: Install yay
   block:
@@ -94,3 +49,43 @@
       args:
         chdir: "{{ temp.path }}"
         creates: /usr/bin/yay
+
+- name: Login Manager
+  block:
+    - name: Install ly
+      shell: yay --needed --noconfirm -S ly
+      args:
+        creates: /sbin/ly
+    - name: Enable ly service
+      become: true
+      service:
+        name: ly
+        enabled: true
+
+- name: Audio
+  block:
+    - name: Install pipewire
+      become: true
+      pacman:
+        name:
+          - wireplumber
+          - pipewire
+          - pipewire-alsa
+          - pipewire-pulse
+          - pipewire-jack
+          - helvum
+          - pavucontrol
+          - bluez
+          - bluez-utils
+          - mpd
+        state: present
+    - name: Start and enable mpd service
+      become: true
+      service:
+        name: mpd
+        enabled: true
+    - name: Start and enable bluetooth service
+      become: true
+      service:
+        name: bluetooth
+        enabled: true

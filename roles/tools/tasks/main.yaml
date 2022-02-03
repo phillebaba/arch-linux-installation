@@ -1,8 +1,36 @@
-- import_tasks: shell.yaml
-- import_tasks: vim.yaml
-- import_tasks: general.yaml
+- name: Install jq
+  become: true
+  pacman:
+    name: jq
+    state: present
+
+- name: Install udiskie
+  become: true
+  pacman:
+    name: udiskie
+    state: present
+
+- name: Install thefuck
+  become: true
+  pacman:
+    name: thefuck
+    state: present
+
+- name: Install jq
+  become: true
+  pacman:
+    name: jq
+    state: present
+
+- name: Install nodejs
+  become: true
+  pacman:
+    name:
+    - nodejs
+    - npm
+    state: present
+
+- import_tasks: application.yaml
 - import_tasks: cloud.yaml
-- import_tasks: docker.yaml
-- import_tasks: kubernetes.yaml
-- import_tasks: python.yaml
+- import_tasks: container.yaml
 - import_tasks: password-manager.yaml

@@ -1,10 +1,10 @@
-- name: Install NetworkManager
+- name: Install Network Manager
   become: true
   pacman:
     name: networkmanager
     state: present
 
-- name: Start networkmanager service and enable it
+- name: Start Network Manager service and enable it
   become: true
   systemd:
     name: NetworkManager
@@ -23,4 +23,21 @@
   become: true
   pacman:
     name: dnsutils
+    state: present
+
+- name: Install UFW
+  pacman:
+    name: ufw
+    state: present
+  become: true
+- name: Deny everything and enable UFW
+  ufw:
+    state: enabled
+    policy: deny
+  become: true
+
+- name: Install ssh
+  become: true
+  pacman:
+    name: openssh
     state: present
