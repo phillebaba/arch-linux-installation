@@ -124,11 +124,26 @@
       pacman:
         name: wl-clipboard
         state: present
+
+- name: Light controls
+  block:
     - name: Install light
       become: true
       pacman:
         name: light
         state: present
+    - name: Check if intel backlight exists
+      stat:
+        path: /sys/class/backlight/intel_backlight/
+      register: intel_backlight
+    - name: Allow users to change backlight
+      become: true
+      copy:
+        dest: /etc/udev/rules.d/backlight.rules
+        content: |
+          RUN+="/bin/chgrp video /sys/class/backlight/intel_backlight/brightness"
+          RUN+="/bin/chmod g+w /sys/class/backlight/intel_backlight/brightness"
+      when: intel_backlight.stat.exists
 
 # Xorg
 - name: Install xorg compatibility
