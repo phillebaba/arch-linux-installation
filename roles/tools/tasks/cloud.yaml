@@ -1,7 +1,7 @@
-- name: Install terraform
+- name: Install tfenv
   shell: yay --needed --noconfirm -S tfenv
-  #args:
-  #  creates: /usr/bin/river
+  args:
+    creates: /sbin/tfenv
 
 - name: Install AWS CLI
   shell: yay --needed --noconfirm -S aws-cli-v2-bin
