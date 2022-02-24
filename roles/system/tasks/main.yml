@@ -1,3 +1,7 @@
+- name: Set as default locale
+  become: true
+  command: localectl set-locale LANG=en_US.UTF-8
+
 - name: Disable root login
   shell: passwd -l root
   become: true
