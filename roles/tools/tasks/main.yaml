@@ -10,6 +10,12 @@
     name: go-yq
     state: present
 
+- name: Install direnv
+  become: true
+  pacman:
+    name: direnv
+    state: present
+
 - name: Install htop
   become: true
   pacman:

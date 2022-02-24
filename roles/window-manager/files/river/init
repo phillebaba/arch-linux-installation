@@ -3,6 +3,9 @@
 # Mod1 = Alt
 # Mod4 = Windows Key
 
+# Start kanshi
+riverctl spawn kanshi
+
 # Start waybar
 riverctl spawn waybar
 
