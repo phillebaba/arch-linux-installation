@@ -4,6 +4,12 @@
     name: kubectl
     state: present
 
+- name: Install helm
+  become: true
+  pacman:
+    name: helm
+    state: present
+
 - name: Install kubectx
   become: true
   pacman:
@@ -25,25 +31,35 @@
   args:
     creates: /sbin/kind
 
-#- name: Install docker
-#  become: true
-#  pacman:
-#    name: docker
-#    state: present
-#
-#- name: Start docker service
-#  become: true
-#  service:
-#    name: docker
-#    state: started
-#    enabled: true
-#
-#- name: Add user to docker group
-#  block:
-#    - command: whoami
-#      register: current_user
-#    - user:
-#        name: "{{ current_user.stdout }}"
-#        groups: docker
-#        append: true
-#      become: true
+- name: Install Flux CLI
+  shell: yay --noconfirm -S flux-bin
+  args:
+    creates: /sbin/flux
+
+- name: Install opa
+  shell: yay --noconfirm -S opa
+  args:
+    creates: /sbin/opa
+
+- name: Install docker
+  become: true
+  pacman:
+    name: docker
+    state: present
+
+- name: Start docker service
+  become: true
+  service:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Add user to docker group
+  block:
+    - command: whoami
+      register: current_user
+    - user:
+        name: "{{ current_user.stdout }}"
+        groups: docker
+        append: true
+      become: true

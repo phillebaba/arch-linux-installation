@@ -4,6 +4,18 @@
     name: jq
     state: present
 
+- name: Install yq
+  become: true
+  pacman:
+    name: go-yq
+    state: present
+
+- name: Install htop
+  become: true
+  pacman:
+    name: htop
+    state: present
+
 - name: Install udiskie
   become: true
   pacman:
@@ -14,12 +26,6 @@
   become: true
   pacman:
     name: thefuck
-    state: present
-
-- name: Install jq
-  become: true
-  pacman:
-    name: jq
     state: present
 
 - name: Install nodejs

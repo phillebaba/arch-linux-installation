@@ -7,3 +7,8 @@
   shell: yay --needed --noconfirm -S aws-cli-v2-bin
   args:
     creates: /sbin/aws
+
+- name: Install Azure CLI
+  shell: yay --needed --noconfirm -S azure-cli
+  args:
+    creates: /sbin/az

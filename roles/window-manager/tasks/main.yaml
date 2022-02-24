@@ -138,3 +138,15 @@
       - xorg-xwayland
       - xorg-xeyes
     state: present
+
+# GUI Libraries
+- name: GUI Libraries
+  block:
+    - name: Install QT
+      becom: true
+      pacman:
+        name:
+          - qt5-wayland
+          - qt6-wayland 
+        state: present
+        
