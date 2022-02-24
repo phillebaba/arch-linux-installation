@@ -1,9 +1,9 @@
 - hosts: 127.0.0.1
   connection: local
   roles:
-    #- system
-    #- networking
+    - system
+    - networking
     - shell
-    #- window-manager
+    - window-manager
     - tools
-    #- power-management
+    - power-management

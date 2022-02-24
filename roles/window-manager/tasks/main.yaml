@@ -143,7 +143,7 @@
 - name: GUI Libraries
   block:
     - name: Install QT
-      becom: true
+      become: true
       pacman:
         name:
           - qt5-wayland
