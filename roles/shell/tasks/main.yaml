@@ -49,4 +49,10 @@
     src: ../files/.zshrc
     dest: ~/.zshrc
 
+- name: Install fzf
+  become: true
+  pacman:
+    name: fzf
+    state: present
+
 - import_tasks: vim.yaml
