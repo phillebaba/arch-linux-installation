@@ -66,6 +66,29 @@
         name: ly
         enabled: true
 
+- name: Bluetooth
+  block:
+    - name: Install bluez
+      become: true
+      pacman:
+        name:
+          - bluez
+          - bluez-utils
+        state: present
+    - name: Copy Bluetooth configuration 
+      become: true
+      copy:
+        content: |
+          [Policy]
+          AutoEnable=true
+        dest: /etc/bluetooth/main.conf
+    - name: Start and enable bluetooth service
+      become: true
+      service:
+        name: bluetooth
+        enabled: true
+
+
 - name: Audio
   block:
     - name: Install pipewire
@@ -79,8 +102,6 @@
           - pipewire-jack
           - helvum
           - pavucontrol
-          - bluez
-          - bluez-utils
           - mpd
         state: present
     - name: Start and enable mpd service
@@ -88,8 +109,5 @@
       service:
         name: mpd
         enabled: true
-    - name: Start and enable bluetooth service
-      become: true
-      service:
-        name: bluetooth
-        enabled: true
+
+
