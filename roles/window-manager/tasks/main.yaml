@@ -71,7 +71,7 @@
       become: true
       pacman:
         name: 
-          - waylock
+          - swaylock
           - swayidle
         state: present
     - file:

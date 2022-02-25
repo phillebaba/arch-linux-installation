@@ -1,2 +1,2 @@
-timeout 120 waylock
-before-sleep waylock
+timeout 120 swaylock
+before-sleep swaylock

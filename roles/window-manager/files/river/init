@@ -10,7 +10,7 @@ riverctl spawn kanshi
 riverctl spawn waybar
 
 # System applications
-riverctl spawn "swaybg -i ~/.config/wallpaper.jpg"
+riverctl spawn "swaybg -i ~/.config/wallpaper.jpg -m fill"
 riverctl spawn "mako"
 riverctl spawn "swayidle"
 
@@ -18,7 +18,7 @@ riverctl spawn "swayidle"
 riverctl map normal Mod4+Shift E exit
 
 # Mod4+Shift+L to lock screen
-riverctl map normal Mod4+Mod1 O spawn "waylock"
+riverctl map normal Mod4+Mod1 O spawn "swaylock"
 
 # Mod4+D to start kickoff
 riverctl map normal Mod4 D spawn kickoff
