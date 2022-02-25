@@ -1,7 +1,3 @@
-- name: Set as default locale
-  become: true
-  command: localectl set-locale LANG=en_US.UTF-8
-
 - name: Disable root login
   shell: passwd -l root
   become: true
@@ -11,6 +7,28 @@
   copy:
     content: blacklist pcspkr
     dest: /etc/modprobe.d/nobeep.conf
+
+- name: Set as default locale
+  become: true
+  command: localectl set-locale LANG=en_US.UTF-8
+
+- name: Configure time server
+  block:
+    - name: Stop systemd-timesyncd
+      become: true
+      service:
+        name: systemd-timesyncd
+        enabled: false
+    - name: Install chrony
+      become: true
+      pacman:
+        name: chrony
+        state: present
+    - name: Start and enable chronyd
+      become: true
+      service:
+        name: chronyd
+        enabled: true
 
 - name: Configure mirror updating
   block:
