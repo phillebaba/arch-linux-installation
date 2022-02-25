@@ -18,7 +18,7 @@ riverctl spawn "swayidle"
 riverctl map normal Mod4+Shift E exit
 
 # Mod4+Shift+L to lock screen
-riverctl map normal Mod4+Mod1 L spawn "waylock"
+riverctl map normal Mod4+Mod1 O spawn "waylock"
 
 # Mod4+D to start kickoff
 riverctl map normal Mod4 D spawn kickoff
