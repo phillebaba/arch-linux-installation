@@ -14,11 +14,8 @@ riverctl spawn "swaybg -i ~/.config/wallpaper.jpg -m fill"
 riverctl spawn "mako"
 riverctl spawn "swayidle"
 
-# Mod4+Shift+E to exit river
-riverctl map normal Mod4+Shift E exit
-
-# Mod4+Shift+L to lock screen
-riverctl map normal Mod4+Mod1 O spawn "swaylock"
+# Mod4+Shift+E to open wlogout
+riverctl map normal Mod4+Shift E spawn "wlogout -p layer-shell"
 
 # Mod4+D to start kickoff
 riverctl map normal Mod4 D spawn kickoff
@@ -29,8 +26,8 @@ riverctl map normal Mod4+Shift Return spawn alacritty
 # Mod4+Q to close the focused view
 riverctl map normal Mod4 Q close
 
-# Mod4+C screen shot
-riverctl map normal Mod4 C spawn 'grim -g "$(slurp)" - | wl-copy'
+# Mod4+P screen shot
+riverctl map normal Mod4 P spawn 'grim -g "$(slurp)" - | wl-copy'
 
 # Mod4+J and Mod4+K to focus the next/previous view in the layout stack
 riverctl map normal Mod4 J focus-view next

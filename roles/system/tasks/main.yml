@@ -71,6 +71,12 @@
       args:
         chdir: "{{ temp.path }}"
         creates: /usr/bin/yay
+    
+- name: Install man
+  become: true
+  pacman:
+    name: man-db
+    state: present
 
 - name: Login Manager
   block:
@@ -105,7 +111,6 @@
       service:
         name: bluetooth
         enabled: true
-
 
 - name: Audio
   block:
