@@ -124,6 +124,8 @@
           - pipewire-pulse
           - pipewire-jack
           - helvum
+          - pamixer
+          - playerctl
           - pavucontrol
           - mpd
         state: present
