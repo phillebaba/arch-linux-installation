@@ -13,6 +13,7 @@ riverctl spawn waybar
 riverctl spawn "swaybg -i ~/.config/wallpaper.jpg -m fill"
 riverctl spawn "mako"
 riverctl spawn "swayidle"
+riverctl spawn "wl-paste -t text --watch clipman store"
 
 # Mod4+Shift+E to open wlogout
 riverctl map normal Mod4+Shift E spawn "wlogout -p layer-shell"

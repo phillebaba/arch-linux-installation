@@ -117,13 +117,17 @@
           - grim
         state: present
 
-- name: Tools
+- name: Clipboard
   block:
     - name: Install wl-clipboard
       become: true
       pacman:
         name: wl-clipboard
         state: present
+    - name: Install clipman
+      shell: yay --needed --noconfirm -S clipman
+      args:
+        creates: /sbin/clipman
 
 - name: Light controls
   block:
