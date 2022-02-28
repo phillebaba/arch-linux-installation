@@ -40,6 +40,7 @@
     name:
     - nodejs
     - npm
+    - yarn
     state: present
 
 - import_tasks: application.yaml
