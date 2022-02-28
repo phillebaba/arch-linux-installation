@@ -2,14 +2,14 @@ export ZSH=/usr/share/oh-my-zsh
 export ZSH_THEME="robbyrussell"
 export ZSH_CACHE_DIR=~/.cache/oh-my-zsh
 
-plugins=(extract copydir copyfile git gitignore terraform docker aws kubectl kubectx pass)
+plugins=(extract git gitignore terraform docker aws kubectl kubectx pass)
 
 source $ZSH/oh-my-zsh.sh
 
 # User Configuration
 
 ## PATH
-export PATH=$PATH:$HOME/.local/bin:/usr/local/kubebuilder/bin
+export PATH=$PATH:$HOME/.local/bin:/usr/local/kubebuilder/bin:$HOME/.krew/bin
 
 ## Aliases
 

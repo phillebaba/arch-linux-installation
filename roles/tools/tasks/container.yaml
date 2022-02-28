@@ -16,6 +16,11 @@
     name: kubectx
     state: present
 
+- name: Install krew
+  shell: yay --noconfirm -S krew-bin
+  args:
+    creates: /sbin/kubectl-krew
+
 - name: Install kustomize
   shell: yay --noconfirm -S kustomize-bin
   args:
