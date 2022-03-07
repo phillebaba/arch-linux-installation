@@ -134,6 +134,7 @@
           - playerctl
           - pavucontrol
           - mpd
+          - sof-firmware
         state: present
     - name: Start and enable mpd service
       become: true
